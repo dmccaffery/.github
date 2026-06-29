@@ -10,8 +10,9 @@
 # `build` target — all added alongside this file. Releases are cut from feat:/fix:
 # commits; docs:/chore: commits don't bump the version.
 #
-# Pinned to @v3 (floating major, tracks the v3.x line). To pin a release tag (@v3.2.0)
-# or a full commit SHA, see the github-workflows README "Pinning".
+# Pinned to a full commit SHA on the v4 line (the trailing "# v4.0.0" is the human-readable
+# tag). To track a floating major (@v4) or a release tag (@v4.0.0) instead, see the
+# github-workflows README "Pinning".
 
 name: Release
 
@@ -20,20 +21,22 @@ on:
     branches: [main]
 
 # Ceiling for the reusable workflow. GitHub resolves a reusable workflow's permissions
-# statically as the union of every job and ignores `if:`, so the skipped goreleaser
-# job's id-token / attestations / artifact-metadata must still be granted here or the
-# whole run startup-fails — even though no executed job realises them.
+# statically as the union of every job and ignores `if:`, so the skipped goreleaser job's
+# id-token / attestations / artifact-metadata AND the skipped docs job's pages: write must
+# still be granted here or the whole run startup-fails — even though no executed job
+# realises them (this repo ships neither .goreleaser.yaml nor zensical.toml).
 permissions:
   contents: write # create the release/tag and upload assets
   issues: write # release-please labels via the issues api
   pull-requests: write # release-please opens the release PR
-  id-token: write # cosign keyless signing (goreleaser job)
+  id-token: write # cosign keyless signing (goreleaser job) + Pages deploy (docs job)
   attestations: write # build-provenance attestation (goreleaser job)
   artifact-metadata: write # attestation storage record (goreleaser job)
+  pages: write # publish Zensical docs to GitHub Pages (docs job)
 
 jobs:
   release:
-    uses: bitwise-media-group/github-workflows/.github/workflows/release.yaml@v3
+    uses: bitwise-media-group/github-workflows/.github/workflows/release.yaml@4a154ffd7efbb6aff856386ec1def4b6dc364672 # v4.0.0
     with:
       # Author the release PR as the "FF Merge" App so its branch push emits
       # workflow_run events — that lets the auto-merge in merge.yaml retrigger when the

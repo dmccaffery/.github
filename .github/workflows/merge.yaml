@@ -11,7 +11,8 @@
 #   - the "FF Merge" App installed on this repo and in the ruleset bypass list
 #   - branch protection that requires PR review (so an approval sets the review decision)
 #
-# Pinned to @v3 — see the github-workflows README "Pinning".
+# Pinned to a full commit SHA on the v4 line (the trailing "# v4.0.0" is the human-readable
+# tag) — see the github-workflows README "Pinning".
 
 name: Merge
 
@@ -36,7 +37,7 @@ permissions: {}
 
 jobs:
   merge:
-    uses: bitwise-media-group/github-workflows/.github/workflows/merge.yaml@v3
+    uses: bitwise-media-group/github-workflows/.github/workflows/merge.yaml@4a154ffd7efbb6aff856386ec1def4b6dc364672 # v4.0.0
     with:
       app-client-id: ${{ vars.FF_MERGE_CLIENT_ID }}
       # merge-command: /merge     # default — the comment that merges now

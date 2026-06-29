@@ -7,7 +7,8 @@
 # no secrets) complete the auto-merge; harmless for same-repo PRs. Its name "Merge Review
 # Ack" must stay in merge.yaml's workflow_run.workflows list.
 #
-# Pinned to @v3 — see the github-workflows README "Pinning".
+# Pinned to a full commit SHA on the v4 line (the trailing "# v4.0.0" is the human-readable
+# tag) — see the github-workflows README "Pinning".
 
 name: Merge Review Ack
 
@@ -20,4 +21,4 @@ permissions: {}
 
 jobs:
   ack:
-    uses: bitwise-media-group/github-workflows/.github/workflows/merge-review-ack.yaml@v3
+    uses: bitwise-media-group/github-workflows/.github/workflows/merge-review-ack.yaml@4a154ffd7efbb6aff856386ec1def4b6dc364672 # v4.0.0
