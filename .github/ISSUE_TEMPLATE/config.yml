@@ -1,0 +1,19 @@
+# Copyright 2026 BitWise Media Group Ltd
+# SPDX-License-Identifier: MIT
+
+# Issue chooser config for every repository in the organisation — a default community health
+# file, so it applies to any repo without its own .github/ISSUE_TEMPLATE. Blank issues are
+# disabled to keep the tracker actionable: bugs and features go through the forms alongside
+# this file, questions go to Discussions, and security stays private.
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Question or idea
+    url: https://github.com/orgs/bitwise-media-group/discussions
+    about: >-
+      Questions, ideas, and open-ended conversations live in Discussions, not the issue
+      tracker. Start here — we're happy to help.
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/bitwise-media-group/.github/security/policy
+    about: >-
+      Never file security issues publicly. Report privately via the affected repository's
+      Security tab → "Report a vulnerability".

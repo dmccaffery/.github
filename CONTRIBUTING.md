@@ -262,10 +262,11 @@ keeping history linear.
 
 ## Questions?
 
-If anything here is unclear, or you're not sure where to start, open an issue and ask — we're happy to help. Thanks
-again for contributing, and welcome aboard.
+If anything here is unclear, or you're not sure where to start, ask in [GitHub Discussions][discussions] — questions
+live there rather than in the issue tracker, and we're happy to help. Thanks again for contributing, and welcome aboard.
 
 [org]: https://github.com/bitwise-media-group
+[discussions]: https://github.com/orgs/bitwise-media-group/discussions
 [fork-pull]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model
 [conventional]: https://www.conventionalcommits.org/
 [release-please]: https://github.com/googleapis/release-please
