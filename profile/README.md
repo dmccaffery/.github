@@ -24,9 +24,9 @@
 </p>
 
 <p align="center">
-  <a href="https://oss.bitwisemedia.uk/">Website</a>
+  <a href="https://oss.bitwisemedia.uk/">podcast</a>
   &nbsp;·&nbsp;
-  <a href="https://oss.bitwisemedia.uk/evolve/">Evolve</a>
+  <a href="https://oss.bitwisemedia.uk/evolve/">evolve</a>
   &nbsp;·&nbsp;
   <a href="https://oss.bitwisemedia.uk/dotty/">dotty</a>
 </p>
