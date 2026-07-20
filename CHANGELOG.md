@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/dmccaffery/.github/compare/v1.0.0...v1.1.0) (2026-07-20)
+
+
+### Features
+
+* add org-wide issue forms, PR template, and support guide ([d34b076](https://github.com/dmccaffery/.github/commit/d34b076a1c0a1ca6c9123307064d9e1558370213))
+
 ## 1.0.0 (2026-07-02)
 
 
