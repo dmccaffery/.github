@@ -10,8 +10,8 @@
 # `build` target — all added alongside this file. Releases are cut from feat:/fix:
 # commits; docs:/chore: commits don't bump the version.
 #
-# Pinned to a full commit SHA on the v4 line (the trailing "# v4.0.0" is the human-readable
-# tag). To track a floating major (@v4) or a release tag (@v4.0.0) instead, see the
+# Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.0" is the human-readable
+# tag). To track a floating major (@v6) or a release tag (@v6.0.0) instead, see the
 # github-workflows README "Pinning".
 
 name: Release
@@ -32,11 +32,12 @@ permissions:
   id-token: write # cosign keyless signing (goreleaser job) + Pages deploy (docs job)
   attestations: write # build-provenance attestation (goreleaser job)
   artifact-metadata: write # attestation storage record (goreleaser job)
+  packages: write # push container images to GHCR (goreleaser job, required since v6)
   pages: write # publish Zensical docs to GitHub Pages (docs job)
 
 jobs:
   release:
-    uses: bitwise-media-group/github-workflows/.github/workflows/release.yaml@176732b8b8ef2598ae0593db728b4415bcc86888 # v4.4.0
+    uses: bitwise-media-group/github-workflows/.github/workflows/release.yaml@3636c830f0b00c591f8b27401c45786d08466f18 # v6.0.0
     with:
       # Author the release PR as the "FF Merge" App so its branch push emits
       # workflow_run events — that lets the auto-merge in merge.yaml retrigger when the

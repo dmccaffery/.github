@@ -1,9 +1,9 @@
-# This repository is GitHub Actions YAML + Markdown only — there is nothing to compile.
-# The reusable release workflow's publish job runs `make build` unconditionally when a
-# release is cut, so this no-op target exists purely to satisfy that contract (the same
-# `build` target every consuming repo provides). No CI pipeline runs here, so the
-# `test` / `e2e` targets that CI would call are intentionally absent.
+# Copyright 2026 BitWise Media Group Ltd
+# SPDX-License-Identifier: MIT
 
-.PHONY: build
-build: ## no-op: nothing to build
-	@:
+# .github — org-level community health files and workflow defaults. Everything
+# lives in mise tasks: the markdown-lib archetype (prose + license policy,
+# pinned tools) comes from the shared toolchain submodule at .mise/, selected
+# in the root mise.toml. This Makefile is only the thin forwarding shim —
+# `make <task>` == `mise run <task>`.
+include .mise/mise.mk

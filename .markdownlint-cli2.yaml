@@ -1,0 +1,31 @@
+# Copyright 2026 BitWise Media Group Ltd
+# SPDX-License-Identifier: MIT
+
+# Repo-level override of the toolchain house defaults (a repo copy replaces
+# that file wholesale): org community-health files and the profile README use
+# inline HTML (centered logo, badges) and heading-less templates by design, and
+# prettier owns prose wrapping (badge/link lines legitimately exceed 120).
+# yaml-language-server: $schema=https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/refs/heads/main/schema/markdownlint-cli2-config-schema.json
+config:
+  default: true
+  # prettier (proseWrap always, printWidth 120) owns wrapping; long badge and
+  # link lines are unwrappable.
+  line-length: false
+  # the profile README centers its logo and lays out badges with HTML
+  no-inline-html: false
+  # issue/PR templates and the profile README start mid-document by design
+  first-line-heading: false
+  no-duplicate-heading:
+    siblings_only: true
+  code-block-style:
+    style: fenced
+
+globs:
+  - "**/*.md"
+
+ignores:
+  - "node_modules/**"
+  - ".mise/**"
+  - ".venv/**"
+  - ".claude/**"
+  - "CHANGELOG.md"

@@ -1,0 +1,38 @@
+# Copyright 2026 BitWise Media Group Ltd
+# SPDX-License-Identifier: MIT
+
+# Keep the SHA-pinned actions and the shared toolchain submodule fresh.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: build
+      prefix-development: build
+      include: scope
+    cooldown:
+      default-days: 7
+      # our own actions ship straight through — no cooldown wait
+      exclude:
+        - bitwise-media-group/*
+
+  # The pinned dev CLIs and task archetypes come from the toolchain submodule
+  # at .mise/. Track it so a library release (a new `release` branch head)
+  # flows here as a bump.
+  - package-ecosystem: gitsubmodule
+    directory: /
+    cooldown:
+      default-days: 7
+      # our own toolchain submodule ships straight through — no cooldown wait.
+      # Dependabot names a submodule dependency by its path, so exclude ".mise"
+      # (not an owner glob like the actions ecosystem uses).
+      exclude:
+        - .mise
+    commit-message:
+      include: scope
+      prefix: build
+      prefix-development: build
+    schedule:
+      interval: daily
