@@ -1,12 +1,14 @@
 # Copyright 2026 BitWise Media Group Ltd
 # SPDX-License-Identifier: MIT
 
-# MANAGED FILE — do not edit in a consuming repo.
+# Add to Project — this repo's own caller, maintained here.
 #
-# This is the canonical caller that `org-config.sh workflows-sync` fans out to
-# `.github/workflows/add-to-project.yaml` in every non-archived org repo. Edit it
-# here in github-settings and re-run the sync; a hand-edit in a consuming repo is
-# overwritten on the next sync.
+# It arrived via `org-config.sh workflows-sync`, which used to fan a canonical copy out to
+# every non-archived org repo; that copy was removed from github-settings (repo-config/
+# workflows/ now holds only a .gitkeep), so the sync no longer overwrites this file and
+# edits here are safe. Sibling repos still carry the old "MANAGED FILE" header from that
+# era. If a default caller is ever reinstated in github-settings, this reverts to being
+# sync-managed and the header must say so again.
 #
 # When an issue or pull request is opened it is added to the shared org "Roadmap"
 # project so every repo's work collects in one board. The reusable workflow mints a
@@ -33,7 +35,7 @@ permissions: {}
 
 jobs:
   add:
-    uses: bitwise-media-group/github-workflows/.github/workflows/add-to-project.yaml@3636c830f0b00c591f8b27401c45786d08466f18 # v6.0.0
+    uses: bitwise-media-group/github-workflows/.github/workflows/add-to-project.yaml@b9c031429f149794bedb5411b08d5a787b8d9959 # v6.0.1
     with:
       project-url: https://github.com/orgs/bitwise-media-group/projects/1
       app-client-id: ${{ vars.ADD_TO_PROJECT_CLIENT_ID }}
