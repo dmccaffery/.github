@@ -11,7 +11,7 @@
 #   - the "FF Merge" App installed on this repo and in the ruleset bypass list
 #   - branch protection that requires PR review (so an approval sets the review decision)
 #
-# Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.0" is the human-readable
+# Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.1" is the human-readable
 # tag) — see the github-workflows README "Pinning".
 
 name: Merge
@@ -23,10 +23,11 @@ on:
   issue_comment:
     types: [created]
   workflow_run:
-    # Every check that must be green before a merge attempt, plus "Merge Review Ack" so an
-    # approval completes the merge. There is no CI workflow here yet — add its name to this
-    # list when one is introduced. ff-merge re-verifies all required checks at merge time.
-    workflows: ["Merge Review Ack"]
+    # Every check that must be green before a merge attempt — "Continuous Integration"
+    # (ci.yaml) and "Security Analysis" (security.yaml) — plus "Merge Review Ack" so an
+    # approval completes the merge. Whichever finishes last triggers the attempt, and
+    # ff-merge re-verifies all required checks at merge time.
+    workflows: ["Continuous Integration", "Security Analysis", "Merge Review Ack"]
     types: [completed]
   schedule:
     # Backstop sweep of armed PRs for any missed event trigger.
@@ -37,7 +38,7 @@ permissions: {}
 
 jobs:
   merge:
-    uses: bitwise-media-group/github-workflows/.github/workflows/merge.yaml@3636c830f0b00c591f8b27401c45786d08466f18 # v6.0.0
+    uses: bitwise-media-group/github-workflows/.github/workflows/merge.yaml@b9c031429f149794bedb5411b08d5a787b8d9959 # v6.0.1
     with:
       app-client-id: ${{ vars.FF_MERGE_CLIENT_ID }}
       # merge-command: /merge     # default — the comment that merges now

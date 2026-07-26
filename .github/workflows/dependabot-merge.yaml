@@ -1,0 +1,47 @@
+# Copyright 2026 BitWise Media Group Ltd
+# SPDX-License-Identifier: MIT
+
+# Dependabot auto-merge — thin caller for the org's reusable dependabot-merge workflow.
+# Dependabot opens the pin-bump PRs (see .github/dependabot.yaml, which groups them by
+# owner); minor/patch updates are auto-approved and squash-merged once every check on the
+# head is green, reading the update-type policy from Dependabot's signed commit. Major
+# updates are never approved, so they wait for a human.
+#
+# Just workflow_run: that event attaches no check run to the PR, so this needs no
+# pull_request_target and leaves no skipped-job clutter on the PR's checks list.
+# check_suite is NOT usable — GitHub does not fire it for a repo's own Actions CI.
+#
+# The workflow_run list names every workflow that must pass — "Continuous Integration"
+# (ci.yaml) and "Security Analysis" (security.yaml) — plus "Merge Review Ack"
+# (merge-review-ack.yaml). That last one is not optional: the merge job's all-green gate
+# counts the `ack` check that its own approval raises via the review-ack workflow, and that
+# check only goes green AFTER CI. Without it the final CI completion would find `ack` still
+# pending and defer, with nothing left to retry — the PR would sit approved and green but
+# unmerged. Whichever watched workflow finishes last triggers the attempt, and the reusable
+# workflow re-verifies every check before squashing.
+#
+# Org prerequisites (see bitwise-media-group/ff-merge): the FF_MERGE_CLIENT_ID variable +
+# FF_MERGE_PRIVATE_KEY secret, and the "FF Merge" App installed on this repo and in main's
+# ruleset bypass list — the same App as the `/merge` flow in merge.yaml.
+#
+# Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.1" is the human-readable
+# tag) — see the github-workflows README "Pinning".
+
+name: Dependabot Auto-Merge
+
+on:
+  workflow_run:
+    workflows: ["Continuous Integration", "Security Analysis", "Merge Review Ack"]
+    types: [completed]
+
+# the App token does the privileged work; the caller grants nothing
+permissions: {}
+
+jobs:
+  auto-merge:
+    uses: bitwise-media-group/github-workflows/.github/workflows/dependabot-merge.yaml@b9c031429f149794bedb5411b08d5a787b8d9959 # v6.0.1
+    with:
+      app-client-id: ${{ vars.FF_MERGE_CLIENT_ID }}
+      # update-types: minor + patch by default — majors wait for a human
+    secrets:
+      app-private-key: ${{ secrets.FF_MERGE_PRIVATE_KEY }}
