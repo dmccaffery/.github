@@ -17,6 +17,20 @@ updates:
       # our own actions ship straight through — no cooldown wait
       exclude:
         - bitwise-media-group/*
+    # One PR per owner, the house convention: the reusable-workflow callers here only
+    # reference bitwise-media-group/*, so that group carries every bump today and lands
+    # the whole v6 line in a single PR. The actions/* and github/* groups are the
+    # standard pair kept for when a direct action reference appears in a caller.
+    groups:
+      actions:
+        patterns:
+          - actions/*
+      github:
+        patterns:
+          - github/*
+      bitwise-media-group:
+        patterns:
+          - bitwise-media-group/*
 
   # The pinned dev CLIs and task archetypes come from the toolchain submodule
   # at .mise/. Track it so a library release (a new `release` branch head)
