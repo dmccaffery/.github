@@ -10,8 +10,8 @@
 # `build` target — all added alongside this file. Releases are cut from feat:/fix:
 # commits; docs:/chore: commits don't bump the version.
 #
-# Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.0" is the human-readable
-# tag). To track a floating major (@v6) or a release tag (@v6.0.0) instead, see the
+# Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.1" is the human-readable
+# tag). To track a floating major (@v6) or a release tag (@v6.0.1) instead, see the
 # github-workflows README "Pinning".
 
 name: Release
@@ -37,7 +37,7 @@ permissions:
 
 jobs:
   release:
-    uses: bitwise-media-group/github-workflows/.github/workflows/release.yaml@3636c830f0b00c591f8b27401c45786d08466f18 # v6.0.0
+    uses: bitwise-media-group/github-workflows/.github/workflows/release.yaml@b9c031429f149794bedb5411b08d5a787b8d9959 # v6.0.1
     with:
       # Author the release PR as the "FF Merge" App so its branch push emits
       # workflow_run events — that lets the auto-merge in merge.yaml retrigger when the
