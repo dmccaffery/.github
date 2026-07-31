@@ -57,9 +57,12 @@ arrive as pull requests from your own fork.
 1. **Fork** the repository on GitHub and **clone** your fork (swap in the repository you're working on):
 
    ```bash
-   git clone git@github.com:<your-username>/<repository>.git
+   git clone --recurse-submodules git@github.com:<your-username>/<repository>.git
    cd <repository>
    ```
+
+   The `--recurse-submodules` flag brings in the shared toolchain most of our repositories mount at `.mise/` — see
+   [Setting up the toolchain](#setting-up-the-toolchain) for what it is and the one-time setup.
 
 2. **Add the upstream remote** so you can keep your fork in sync:
 
@@ -96,11 +99,45 @@ git fetch upstream
 git rebase upstream/main
 ```
 
+## Setting up the toolchain
+
+Most of our repositories share one developer toolchain — the [toolchain][toolchain] repository — consumed as a git
+submodule mounted at `.mise/`, with the [mise][mise] CLI managing the pinned tools and tasks it defines. If the
+repository you're working on has a `.gitmodules` entry for `.mise`, three one-time steps get you a working `make`:
+
+1. **Initialise the submodule** (skip this if you cloned with `--recurse-submodules`):
+
+   ```bash
+   git submodule update --init
+   ```
+
+2. **Install mise** if you don't already have it — the [mise installation docs][mise-install] cover every platform:
+
+   ```bash
+   curl https://mise.run | sh   # or: brew install mise
+   ```
+
+3. **Trust the configuration**, once per clone:
+
+   ```bash
+   mise trust --all
+   ```
+
+Trusting tells mise it may act on the repository's configuration — install the tools it pins and expose the tasks it
+defines — so treat it as an informed decision rather than a reflex. What you're trusting is the [toolchain][toolchain]
+itself (the `.mise/` submodule; its README documents exactly what it installs and runs) plus the repository's own
+`mise.toml`. Every tool is pinned with per-platform sha256 checksums in the toolchain's `mise.lock`, and mise verifies
+them on install.
+
+Once trusted, `make help` (or `mise tasks`) lists what the repository exposes; the two are interchangeable, as the
+Makefile is a thin forwarder to mise. The first run installs the pinned tools, so it needs network access and a little
+patience.
+
 ## Before you commit
 
 Every public repository we accept contributions to ships a `make pr` target that runs the same gate CI enforces — it
-injects licence headers, formats and lints prose and code, builds, and runs the tests. Run it before you commit, and
-stage everything it changes:
+injects licence headers, formats and lints prose and code, builds, and runs the tests. It's provided by the
+[toolchain](#setting-up-the-toolchain), so set that up first. Run it before you commit, and stage everything it changes:
 
 ```bash
 make pr
@@ -270,6 +307,9 @@ live there rather than in the issue tracker, and we're happy to help. Thanks aga
 [discussions]: https://github.com/orgs/bitwise-media-group/discussions
 [fork-pull]:
   https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model
+[toolchain]: https://github.com/bitwise-media-group/toolchain
+[mise]: https://mise.jdx.dev/
+[mise-install]: https://mise.jdx.dev/getting-started.html
 [conventional]: https://www.conventionalcommits.org/
 [release-please]: https://github.com/googleapis/release-please
 [dco]: https://developercertificate.org/
