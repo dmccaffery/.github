@@ -12,8 +12,9 @@
 # to trip over). Pinning it also documents that intent rather than leaving it implicit.
 #
 # The "Security Analysis" check this raises is what the public-code-quality ruleset's
-# code_scanning rule requires, and its name is listed in merge.yaml and
-# dependabot-merge.yaml so a merge attempt waits for it.
+# code_scanning rule requires, and its name is listed in merge.yaml so a merge attempt
+# waits for it. Renovate PRs merge through the same path — no separate dependabot-merge-
+# style caller is needed; the bot squash-merges its own green PRs via its App token.
 #
 # Pinned to a full commit SHA on the v6 line (the trailing "# v6.0.1" is the human-readable
 # tag) — see the github-workflows README "Pinning".
